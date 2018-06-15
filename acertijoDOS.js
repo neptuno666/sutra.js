@@ -1,31 +1,13 @@
 // perra bida
 
-const graph = {
+const problem = {
   UNO: {A: 1, B: 9, C: 14},
-  DOS: {B: 10, D:15},
-  TRES: {C: 2, D: 11},
-  SEIS: {finish: 9},
-  CUATRO: {finish: 6},
+  A: {B: 10, D: 15},
+  B: {C: 2, D: 11},
+  C: {CINCO: 9},
+  D: {CINCO: 6},
   CINCO: {}
 };
-
-const costs = {
-  A: 1,
-  B: 9,
-  C: 14,
-  finish: Infinity 
-};
-
-const parents = {
-  A: 'start',
-  B: 'start',
-  C: 'start',
-  finish: null
-};
-
-const processed = ["start", "A", "B", "C"];
-
-console.log(costs)
 
 const lowestCostNode = (costs, processed)  => {
   return Object.keys(costs).reduce((lowest, node) => {
@@ -38,21 +20,23 @@ const lowestCostNode = (costs, processed)  => {
   }, null);
 };
 
+// function that returns the minimum cost and path to reach el CINCO
 const sutra = (graph) => {
-  const costs = Object.assign({finish: Infinity}, graph.start);
-  const parents = {finish: null};
-
-  for (let child in graph.start) { // add children of start node
-    parents[child] = 'start';
+  
+  // track paths
+  const costs = Object.assign({CINCO: Infinity}, graph.UNO);
+  const parents = {CINCO: null};
+  for (let child in graph.UNO) { // add children of UNO node
+    parents[child] = 'UNO';
   }
 
+  // track nodes that have already been processed
   const processed = [];
   
   let node = lowestCostNode(costs, processed);
   while (node) {
     let cost = costs[node];
     let children = graph[node];
-
     for (let n in children) {
       let newCost = cost + children[n];
       if (!costs[n]) {
@@ -64,26 +48,24 @@ const sutra = (graph) => {
         parents[n] = node;
       }
     }
-
     processed.push(node);
-
     node = lowestCostNode(costs, processed);
   }
 
-  let optimalPath = ['finish'];
-  let parent = parents.finish;
-
+  let optimalPath = ['CINCO'];
+  let parent = parents.CINCO;
   while (parent) {
     optimalPath.push(parent);
     parent = parents[parent];
   }
-
   optimalPath.reverse(); // reverse array to get correct order
 
   const results = {
-    distance: costs.finish,
+    distance: costs.CINCO,
     path: optimalPath
   };
 
   return results;
 }; // end of function
+
+console.log(sutra(problem));
