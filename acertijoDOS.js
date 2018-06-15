@@ -1,11 +1,11 @@
 // perra bida
 
 const problem = {
-  UNO: {A: 1, B: 9, C: 14},
-  A: {B: 10, D: 15},
-  B: {C: 2, D: 11},
-  C: {CINCO: 9},
-  D: {CINCO: 6},
+  UNO: {DOS: 1, TRES: 9, SEIS: 14},
+  DOS: {TRES: 10, CUATRO: 15},
+  TRES: {SEIS: 2, CUATRO: 11},
+  SEIS: {CINCO: 9},
+  CUATRO: {CINCO: 6},
   CINCO: {}
 };
 
